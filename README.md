@@ -1,24 +1,31 @@
-# Kagami
+# plainwhite
 
-[![Build Status](https://travis-ci.org/kamikat/jekyll-theme-kagami.svg?branch=master)](https://travis-ci.org/kamikat/jekyll-theme-kagami)
-[![Gem Version](https://badge.fury.io/rb/jekyll-theme-kagami.svg)](https://badge.fury.io/rb/jekyll-theme-kagami)
+Simplistic jekyll portfolio-style theme for writers.
 
-A peaceful theme for Jekyll and GitHub Pages.
+**Demo**: [samarsault.com](https://samarsault.com)
 
-![Screenshot](https://s2.banana.moe/docs/kagami-preview@2x.png)
+![plainwhite theme preview](/screenshot.png)
+
+## Installation on Github Pages
+
+Add this line to your site's `_config.yml`:
+
+```yaml
+remote_theme: samarsault/plainwhite-jekyll
+```
 
 ## Installation
 
-Add this line to your Jekyll site's Gemfile:
+Add this line to your Jekyll site's `Gemfile`:
 
 ```ruby
-gem "jekyll-theme-kagami"
+gem "plainwhite"
 ```
 
 And add this line to your Jekyll site's `_config.yml`:
 
 ```yaml
-theme: jekyll-theme-kagami
+theme: plainwhite
 ```
 
 And then execute:
@@ -27,140 +34,170 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install jekyll-theme-kagami
-
-### GitHub Pages
-
-Jekyll build is integrated with GitHub Pages with limited function. This section is intended for those who
-want to use the theme with GitHub Pages hosted sites.
-
-1. Download latest gem file from https://rubygems.org/gems/jekyll-theme-kagami
-2. Run `gem unpack [path-to-downloaded-gem-file] --target=.` on jekyll site project folder
-3. Delete the line `theme: ...` in `_config.yml`
-
-Zip archive downloaded from release page may not work because GitHub does not pack necessary files from submodules.
-
-Instruction 1 and 2 can also work when you decide to upgrade your installation.
+    $ gem install plainwhite
 
 ## Usage
 
-### Social account links
-
-You can customize social account links by adding following lines to `_config.yml`
+The "plainwhite" key in \_config.yml is used to customize the theme data.
 
 ```yaml
-github_username: my_github_username
-twitter_username: my_twitter_username
-instagram_username: my_instagram_username
+plainwhite:
+  name: Adam Denisov
+  tagline: Developer. Designer
+  date_format: "%b %-d, %Y"
+
+  social_links:
+    twitter: samarsault
+    github: samarsault
+    linkedIn: in/samarsault # format: locale/username
 ```
 
-You can customize footer by overriding `_includes/footer.html`.
+**Updating Placeholder Image**
 
-### Syntax highlighting
-
-Kagami support color schemes from [jekyll-pygments-themes](https://github.com/jwarby/jekyll-pygments-themes).
-
-Add the following lines to choose a color scheme:
+The placeholder portfolio image can be replaced by the desired image by placing it as `assets/portfolio.png` in your jekyll website, or by changing the following line in `_config.yaml`
 
 ```yaml
-color_scheme: github
+plainwhite:
+  portfolio_image:  "assets/portfolio.png" # the path from the base directory of the site to the image to display (no / at the start)
 ```
 
-### Enabling comments (via Disqus)
-
-Optionally, if you have a Disqus account, you can tell Jekyll to use it to show a comments section below each post.
-
-To enable it, add the following lines to your Jekyll site:
+To use a different image for dark mode, e.g. with different colors that work better in dark mode, add a `portfolio_image_dark` entry in addition to the `portfolio_image`.
 
 ```yaml
-disqus_shortname: my_disqus_shortname
+plainwhite:
+  portfolio_image:      "assets/portfolio.png"
+  portfolio_image_dark: "assets/portfolio_dark.png"
 ```
 
-You can find out more about Disqus' shortnames [here](https://help.disqus.com/customer/portal/articles/466208).
+**Comments (Disqus)**
 
-Comments are enabled by default and will only appear in production, i.e., `JEKYLL_ENV=production`
-
-If you don't want to display comments for a particular post you can disable them by adding `comments: false` to that post's YAML Front Matter.
-
-### Enabling Google Analytics
-
-To enable Google Anaytics, add the following lines to your Jekyll site:
+Comments on posts can be enabled by specifying your disqus_shortname under plainwhite in `_config.yml`. For example,
 
 ```yaml
-google_analytics: UA-NNNNNNNN-N
+plainwhite:
+  disqus_shortname: games
 ```
 
-Google Analytics will only appear in production, i.e., `JEKYLL_ENV=production`
+**Google Analytics**
 
-### Navigation
-
-Pages and posts can be listed as navigation item in header of pages. Add following frontmatter will make it
+It can be enabled by specifying your analytics id under plainwhite in `_config.yml`
 
 ```yaml
-navlevel: header
-navtitle: Awesome Title # optional, specifies the text to display on navigation item
+plainwhite:
+  analytics_id: "< YOUR ID >"
 ```
 
-Navigation items are ordered in alphabetical order by default in Jekyll. While you can adjust the order manually using
+**Sitemap**
+
+It can be toggled by the following line to under plainwhite in `_config.yml`
 
 ```yaml
-position: 999
+plainwhite:
+  sitemap: true
 ```
 
-### Tags and category
+**Excerpts**
 
-Layout file `post-list` supports filters by tag or category. Create pages with following frontmatter will generate a filtered post list.
+Excerpts can be enabled by adding the following line to your `_config.yml`
 
 ```yaml
-title: Title of Tag Page
-layout: post-list
-filter:
-  - by_tag: tagname
+show_excerpts: true
 ```
 
-To filter by both category and tags:
+**Layouts**
+
+- Home
+- Page
+- Post
+
+**Navigation**
+
+Navigation can be enabled by adding the following line to your `_config.yml`
 
 ```yaml
-filter:
-  - by_tag: tagname
-    by_category: category
+plainwhite:
+  navigation:
+    - title: My Work
+      url: "/my-work"
+    - title: Resume
+      url: "/resume"
 ```
 
-Results from multiple filters are combined (logical 'or') into the result.
+**Mobile**
 
-A more flexible filter strategy is supported by supplying liquid expression to `by_expression` parameter in which post object can be referenced by the name `post`.
-
-### Enabling MathJax
-
-You can use MathJax with Kramdown's [built-in support](https://kramdown.gettalong.org/syntax.html#math-blocks).
-
-To enable [MathJax](https://www.mathjax.org/), add following lines to your site
-or post's front matter stuff:
+By default, Plainwhite places the sidebar (logo, name, tagline etc.) above the content on mobile (narrow screens).
+To condense it (moving some things to the bottom of the page and making the rest smaller) so it takes up less space, add the following to your `_config.yml`:
 
 ```yaml
-mathjax: true
+plainwhite:
+  condensed_mobile:
+    - home
+    - post
+    - page
 ```
 
-### Use `.side-note` and `.retina2x`
+This chooses which layouts (types of page) should be condensed on mobile screens. E.g. if you want everything but the landing page to be condensed, remove `home` from the list. This option does not affect rendering on wider screens.
 
-Taking advantages of [Block/span IAL](https://kramdown.gettalong.org/syntax.html#block-ials),
-Kagami supports extra elements in writing.
+**Dark mode**
 
-Add `{:.side-note}` notation after a paragraph (in a new line just after paragraph WITHOUT extra line breaks)
-will style the paragraph as a sidenote. Sidenote will be pull to the left of
-the page and only be visible in desktop mode.
+Dark mode can be enabled by setting the `dark_mode` flag in your `_config.yml`
 
-Kagami is also optimized for high-res image display:
+The website will check the OS preferred color scheme and set the theme accordingly, the preference will then be saved in a cookie
 
-```markdown
-![image@2x](path-to-image@2x.png){:.retina2x}
+```yaml
+plainwhite:
+  dark_mode: true
 ```
 
-And the retina image will be scaled to half of it's original size in pixels.
+![plainwhite dark theme previe](/dark.png)
+
+**Multiline tagline**
+
+Tagline can be multiline in this way
+
+```yaml
+plainwhite:
+  tagline: |
+  First Line. 
+
+  Second Line. 
+
+  Third Line.
+```
+
+**Search-bar**
+
+Search-bar can be enabled by adding the following line to `config.yml`
+
+```yaml
+plainwhite:
+  search: true
+```
+
+Search is powered by [Simple-Jekyll-Search](https://github.com/christian-fei/Simple-Jekyll-Search) Jekyll plugin. A `search.json` containing post meta and contents will be generated in site root folder. Plugin JavaScript will then match for posts based on user input. More info and `search.json` customization documentation can be found in plugin repository.
+
+**Base URL**
+
+You can specify a custom base URL (eg. example.com/blog/) by adding the following line to `_config.yaml`. Note that there is no trailing slash on the URL.
+
+```yaml
+baseurl: "/blog"
+```
+
+**Language**
+
+You can set the `lang` attribute of the `<html>` tag on your pages by changing the following line in `_config.yml`:
+
+```yaml
+plainwhite:
+  html_lang: "en"
+```
+
+[See here for a full list of available language codes](https://www.w3schools.com/tags/ref_country_codes.asp)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/kamikat/jekyll-theme-kagami>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/samarsault/plainwhite-jekyll. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Development
 
@@ -168,9 +205,18 @@ To set up your environment to develop this theme, run `bundle install`.
 
 Your theme is setup just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
 
-When your theme is released, only the files in `_layouts`, `_includes`, and `_sass` tracked with Git will be released.
+When your theme is released, only the files in `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
+To add a custom directory to your theme-gem, please edit the regexp in `plainwhite.gemspec` accordingly.
+
+## Donation
+If this project help you reduce time to develop, you can give me a cup of coffee :) 
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/thelehhman)
 
 ## License
 
-The theme is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
+## More themes
+
+- [Texture](https://github.com/samarsault/texture)
